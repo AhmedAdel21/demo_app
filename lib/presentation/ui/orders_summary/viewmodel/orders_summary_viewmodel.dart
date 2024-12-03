@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:e_commerce_shop/app/di.dart';
-import 'package:e_commerce_shop/app/global_functions.dart';
 import 'package:e_commerce_shop/domain/model/models.dart';
 import 'package:e_commerce_shop/domain/usecase/usecase.dart';
 import 'package:e_commerce_shop/presentation/resources/models.dart';
@@ -29,11 +28,9 @@ class OrdersSummaryViewModel extends BaseViewModel
     _dataStateSC.add(DataState.loading);
     // await Future.delayed(const Duration(seconds: 2));
     (await DI.getItInstance<GetOrdersUsecase>().execute(null)).fold((left) {
-      securePrint("left: $left");
       _dataStateSC.add(DataState.error);
     }, (right) {
       _orders = right;
-      securePrint("_orders: $_orders");
       _processOrder();
       if (_orders.isEmpty) {
         _dataStateSC.add(DataState.empty);

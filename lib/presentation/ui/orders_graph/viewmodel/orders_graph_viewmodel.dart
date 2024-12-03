@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:e_commerce_shop/app/di.dart';
-import 'package:e_commerce_shop/app/global_functions.dart';
 import 'package:e_commerce_shop/domain/model/models.dart';
 import 'package:e_commerce_shop/domain/usecase/usecase.dart';
 import 'package:e_commerce_shop/presentation/resources/models.dart';
@@ -47,12 +46,10 @@ class OrderGraphViewModel extends BaseViewModel
     _dataStateSC.add(DataState.loading);
     // await Future.delayed(const Duration(seconds: 2));
     (await DI.getItInstance<GetOrdersUsecase>().execute(null)).fold((left) {
-      securePrint("left: $left");
       _dataStateSC.addError(left.message);
       // _dataStateSC.add(DataState.error);
     }, (right) {
       _orders = right;
-      securePrint("_orders: $_orders");
       _processOrders();
       if (_orders.isEmpty) {
         _dataStateSC.add(DataState.empty);
@@ -93,12 +90,9 @@ class OrderGraphViewModel extends BaseViewModel
       case SortingType.all:
         break;
     }
-    sortedOrders.forEach(securePrint);
-    securePrint("date: $date");
     _returnedList = sortedOrders.where((item) {
       OrderDate orderDate = item.key;
       if (date == null) return true;
-      securePrint("orderDate.getDate: ${orderDate.getDate}");
       return orderDate.getDate.isAfter(date);
     }).map((item) {
       int count = item.value;
@@ -125,7 +119,6 @@ class OrderGraphViewModel extends BaseViewModel
     if (_maxY != 0) {
       _maxY++;
     }
-    _returnedList.forEach(securePrint);
   }
 
   @override
