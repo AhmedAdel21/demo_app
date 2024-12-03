@@ -32,7 +32,9 @@ This Flutter application provides key insights into an e-commerce dataset. It is
 </div>
 
 #### Web Demo
-![Web Demo](assets\gifs\web.gif)
+<div style="display: flex; justify-content: space-evenly;">
+  <img src="assets\gifs\web.gif" alt="iOS Demo">
+</div>
 
 ## Getting Started
 
